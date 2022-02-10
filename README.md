@@ -1,0 +1,1 @@
+LuckyCharmsClassic WoW Addon
