@@ -1,0 +1,4 @@
+LuckyCharmsClassic Change Log
+
+v1.0
+Initial port from LuckyCharms2

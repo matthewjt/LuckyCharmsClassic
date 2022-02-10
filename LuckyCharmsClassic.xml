@@ -1,0 +1,204 @@
+<!--
+	LuckyCharmsClassic v1.0
+	Last Changed By: mattiam
+	Last Changed: 2020-03-26
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="libs\LibStub\LibStub.lua"/>
+	<Script file="localization.en.lua"/> 
+	<Script file="localization.de.lua"/> 
+	<Script file="localization.lua"/>
+	<Script file="LuckyCharmsClassic.lua"/>
+	<Script file="LuckyCharmsClassic_ButtonFacade.lua"/>
+	<Script file="LuckyCharmsClassic_Config.lua"/>
+	<Script>
+		Localize();
+	</Script>
+	
+	<Button name="CharmBtnVirtual" virtual="true">
+		<Size>
+			<AbsDimension x="38" y="38" />
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentIcon"/>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString name="$parentTitle" inherits="TextStatusBarText">
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="0" y="-1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<PushedTexture file="Interface\Buttons\UI-QuickSlot-Depress"/>
+		<HighlightTexture alphaMode="ADD" file="Interface\Buttons\ButtonHilight-Square"/>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+			</OnLoad>
+			<OnClick>
+				LuckyCharms.OnCharmClick(arg1, self:GetName());
+			</OnClick>
+			<OnEnter>
+				LuckyCharms.ButtonTips(self:GetName());
+			</OnEnter>						
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	<Frame name="LuckyCharmAnchor" parent="UIParent" clampedToScreen="true">
+		<Size>
+			<AbsDimension x="30" y="47" />
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+				<Offset>
+					<AbsDimension x="100" y="-100"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnLoad>
+				LuckyCharmsOnLoad(self);
+			</OnLoad>
+			<OnEvent function="LuckyCharmsOnEvent" />
+		</Scripts>
+		<Frames>
+			<Frame name="LuckyCharmAnchorBar" enableMouse="true">
+				<Size>
+					<AbsDimension x="30" y="47" />
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Frames>
+					<Button name="LCBDragButton">
+						<Size>
+							<AbsDimension x="20" y="38"/>
+						</Size>
+						<Anchors>
+							<Anchor point="CENTER" relativePoint="CENTER">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<Texture name="$parentIcon"/>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnLoad>
+								LuckyCharmAnchor:SetMovable(true);
+								LuckyCharmAnchor:RegisterForDrag("LeftButton");
+								LCBDragButton:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+							</OnLoad>
+							<OnMouseUp>
+ 								LuckyCharms.DragUp(_, button);
+							</OnMouseUp>
+							<OnMouseDown>
+ 								LuckyCharms.DragDown(_, button);
+							</OnMouseDown>
+							<OnHide>
+								LuckyCharms.DragUp(_, button);
+							</OnHide>
+							<OnEnter>
+								LuckyCharms.DragOnEnter(self);
+							</OnEnter>						
+							<OnLeave>
+								GameTooltip:Hide();
+							</OnLeave>
+							<OnClick>
+								LuckyCharms.DragOnClick(_,button);
+							</OnClick>
+						</Scripts>
+						<BackgroundTexture file="Interface\Buttons\UI-Slot-Background"/>
+						<PushedTexture alphaMode="ADD" file="Interface\Buttons\UI-QuickSlot-Depress"/>
+						<HighlightTexture alphaMode="ADD" file="Interface\Buttons\ButtonHilight-Square"/>
+					</Button>
+				</Frames>
+			</Frame>
+		</Frames>
+	</Frame>
+
+	<Frame name="LuckyCharm" parent="LuckyCharmAnchor" inherits="BackdropTemplate">
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_16_16_5555" type="global"/>
+			<KeyValue key="backdropBorderColor" value="LEGENDARY_ORANGE_COLOR" type="global"/>
+			<KeyValue key="backdropBorderColorAlpha" value="0.25" type="number"/>
+		</KeyValues>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Frames>
+			<Frame name="LuckyCharmBar" enableMouse="true">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="LuckyCharmAnchorBar">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Frames>
+				</Frames>
+				<Scripts>
+				</Scripts>
+			</Frame>
+			<Frame name="LCReadyCheck" enableMouse="true" hidden="false">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativeTo="LuckyCharmAnchorBar" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="0" y="-2"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="30" y="28" />
+				</Size>
+				<Frames>
+					<Button name="LCRCButton" inherits="OptionsButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="LCReadyCheck" relativePoint="TOPLEFT">
+								<Offset>
+									<AbsDimension x="3" y="-1" />
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="24" y="24" />
+						</Size>
+						<Scripts>
+							<OnClick>
+								DoReadyCheck();
+							</OnClick>
+							<OnEnter>
+								LuckyCharms.ButtonTips(self:GetName());
+							</OnEnter>						
+							<OnLeave>
+								GameTooltip:Hide();
+							</OnLeave>
+						</Scripts>
+					</Button>
+				</Frames>
+			</Frame>
+			
+		</Frames>
+	</Frame>
+</Ui>

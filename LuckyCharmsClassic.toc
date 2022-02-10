@@ -1,0 +1,26 @@
+## Interface: 70200
+## Title: LuckyCharmsClassic |cFFEE0000v1.0|r
+## Notes: Makes a toolbar for setting the "charms" on raid and group targets.
+## Notes-deDE: Macht eine Symbolleiste für die Einstellung der "Charme" auf RAID-und Gruppe-Ziele.
+## Author: mattiam, neer, tartarusspawn
+## SavedVariables: LC2_Settings
+## OptionalDeps: Masque
+## Version: v2.0
+## X-Date: 2020-05-17T00:00:00Z
+## X-Email:
+## X-Website: http://wow.curse.com/downloads/wow-addons/details/luckycharms2.aspx
+## X-Category: MYADDONS_CATEGORY_RAID
+## X-Help:
+## X-OptionsFrame:
+## X-Curse-Packaged-Version: v2.5.1.38677
+## X-Curse-Project-Name: LuckyCharmsClassic
+## X-Curse-Project-ID: luckycharms2
+## X-Curse-Repository-ID: wow/luckycharms2/mainline
+localization.en.lua
+localization.de.lua
+localization.lua
+LuckyCharmsClassic.xml
+LuckyCharmsClassic.lua
+LuckyCharmsClassic_Config.xml
+LuckyCharmsClassic_Config.lua
+LuckyCharmsClassic_ButtonFacade.lua
