@@ -1,4 +1,7 @@
 LuckyCharmsClassic Change Log
 
+v1.1
+Updated for WOTLK 10.x API changes
+
 v1.0
 Initial port from LuckyCharms2
