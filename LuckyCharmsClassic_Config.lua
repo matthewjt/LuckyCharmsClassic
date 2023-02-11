@@ -405,7 +405,7 @@ end
 
 function LuckyCharms.Config.ModAlpha(value)
 	LC2_Settings[LC2Profile].alpha = value;
-	LuckyCharmAnchor:SetAlpha(value);
+	LuckyCharmAnchor:SetAlpha(tonumber(value));
 	LuckyCharmConfig_SliderAlpha:SetValue(value);
 end
 
